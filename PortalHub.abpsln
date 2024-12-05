@@ -1,0 +1,42 @@
+{
+  "id": "897c3c9c-08c9-45a8-942b-4afe5f653f76",
+  "template": "app-nolayers",
+  "versions": {
+    "LeptonX": "4.0.1",
+    "AbpFramework": "9.0.1",
+    "AbpCommercial": "9.0.1",
+    "AbpStudio": "0.9.15",
+    "TargetDotnetFramework": "net9.0"
+  },
+  "modules": {
+    "PortalHub": {
+      "path": "PortalHub.abpmdl"
+    }
+  },
+  "runProfiles": {
+    "Default": {
+      "path": "etc/run-profiles/Default.abprun.json"
+    }
+  },
+  "options": {
+    "httpRequests": {
+      "ignoredUrls": [
+        "^/metrics$"
+      ]
+    }
+  },
+  "creatingStudioConfiguration": {
+    "template": "app-nolayers",
+    "createdAbpStudioVersion": "0.9.15",
+    "multiTenancy": "false",
+    "uiFramework": "angular",
+    "databaseProvider": "ef",
+    "databaseManagementSystem": "postgresql",
+    "theme": "leptonx",
+    "themeStyle": "light",
+    "progressiveWebApp": "",
+    "publicWebsite": "",
+    "optionalModules": "",
+    "socialLogin": ""
+  }
+}

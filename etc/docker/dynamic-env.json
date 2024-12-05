@@ -1,0 +1,21 @@
+{
+  "production": true,
+  "application": {
+    "baseUrl":"http://localhost:4200",
+    "name": "PortalHub",
+    "logoUrl": ""
+  },
+  "oAuthConfig": {
+    "issuer": "https://localhost:44338",
+    "redirectUri": "https://localhost:44338",
+    "clientId": "PortalHub_App",
+    "responseType": "code",
+    "scope": "offline_access openid profile email phone PortalHub"
+  },
+  "apis": {
+    "default": {
+      "url": "https://localhost:44338",
+      "rootNamespace": "PortalHub"
+    }
+  }
+}

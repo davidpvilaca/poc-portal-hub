@@ -1,0 +1,21 @@
+﻿{
+  "applications": {
+    "PortalHub.Angular": {
+      "type": "cli",
+      "workingDirectory": "../../angular",
+      "startCommand": "./start.ps1",
+      "launchUrl": "http://localhost:4200",
+      "execution": {
+        "order": 0
+      }
+    },
+    "PortalHub": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44338",
+      "path": "../../PortalHub/PortalHub.csproj",
+      "execution": {
+        "order": 1
+      }
+    }
+  }
+}

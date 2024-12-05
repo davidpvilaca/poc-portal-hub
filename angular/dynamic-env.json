@@ -1,0 +1,21 @@
+{
+  "production": true,
+  "application": {
+    "baseUrl":"https://portalhub-web",
+    "name": "PortalHub",
+    "logoUrl": ""
+  },
+  "oAuthConfig": {
+    "issuer": "https://portalhub-api/",
+    "redirectUri": "https://portalhub",
+    "clientId": "PortalHub_App",
+    "responseType": "code",
+    "scope": "offline_access openid profile email phone"
+  },
+  "apis": {
+    "default": {
+      "url": "https://portalhub-api",
+      "rootNamespace": "PortalHub"
+    }
+  }
+}
