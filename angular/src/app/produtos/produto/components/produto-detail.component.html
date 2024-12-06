@@ -1,0 +1,163 @@
+<abp-modal [busy]="service.isBusy" [(visible)]="service.isVisible">
+  <ng-template #abpHeader>
+    <!--<suite-custom-code-block-0>-->
+    <!--</suite-custom-code-block-0>-->
+    <h3>
+      <!--<suite-custom-code-block-1>-->
+      <!--</suite-custom-code-block-1>-->
+      {{ (service.selected ? 'AbpUi::Edit' : '::NewProduto') | abpLocalization }}
+      <!--<suite-custom-code-block-2>-->
+      <!--</suite-custom-code-block-2>-->
+    </h3>
+    <!--<suite-custom-code-block-3>-->
+    <!--</suite-custom-code-block-3>-->
+  </ng-template>
+
+  <ng-template #abpBody>
+    <!--<suite-custom-code-block-4>-->
+    <!--</suite-custom-code-block-4>-->
+    <form
+      [formGroup]="service.form"
+      id="produto"
+      (ngSubmit)="service.submitForm()"
+      validateOnSubmit
+    >
+      <!--<suite-custom-code-block-5>-->
+      <!--</suite-custom-code-block-5>-->
+
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink>
+            {{ '::Produto' | abpLocalization }}
+          </a>
+          <ng-template ngbNavContent>
+            <div class="mt-2 fade-in-top">
+              <div class="mb-3">
+                <label class="form-label" for="produto-nome">
+                  {{ '::Nome' | abpLocalization }} *
+                </label>
+
+                <input id="produto-nome" formControlName="nome" class="form-control" autofocus />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-descricao">
+                  {{ '::Descricao' | abpLocalization }}
+                </label>
+
+                <textarea id="produto-descricao" formControlName="descricao" class="form-control">
+                </textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-ciclo-de-vida">
+                  {{ '::CicloDeVida' | abpLocalization }} *
+                </label>
+
+                <input
+                  id="produto-ciclo-de-vida"
+                  formControlName="cicloDeVida"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-data-publicacao">
+                  {{ '::DataPublicacao' | abpLocalization }} *
+                </label>
+
+                <div class="input-group" validationTarget>
+                  <input
+                    readonly
+                    id="produto-data-publicacao"
+                    formControlName="dataPublicacao"
+                    class="form-control"
+                    ngbDatepicker
+                    #dataPublicacaoInput
+                    #dataPublicacaoDatepicker="ngbDatepicker"
+                    (click)="dataPublicacaoDatepicker.open()"
+                    (keyup.space)="dataPublicacaoDatepicker.open()"
+                  />
+                  @if (dataPublicacaoInput.value) {
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-link px-2"
+                        type="button"
+                        [title]="'AbpUi::Clear' | abpLocalization"
+                        (click)="
+                          dataPublicacaoDatepicker.writeValue(null);
+                          dataPublicacaoDatepicker.manualDateChange(null, true)
+                        "
+                      >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-link-documentacao">
+                  {{ '::LinkDocumentacao' | abpLocalization }}
+                </label>
+
+                <input
+                  id="produto-link-documentacao"
+                  formControlName="linkDocumentacao"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-plataforma">
+                  {{ '::Plataforma' | abpLocalization }}
+                </label>
+
+                <input id="produto-plataforma" formControlName="plataforma" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-tecnologias">
+                  {{ '::Tecnologias' | abpLocalization }}
+                </label>
+
+                <input
+                  id="produto-tecnologias"
+                  formControlName="tecnologias"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="produto-status">
+                  {{ '::Status' | abpLocalization }}
+                </label>
+
+                <input id="produto-status" formControlName="status" class="form-control" />
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+
+      <!--<suite-custom-code-block-6>-->
+      <!--</suite-custom-code-block-6>-->
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <!--<suite-custom-code-block-7>-->
+    <!--</suite-custom-code-block-7>-->
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+    <!--<suite-custom-code-block-8>-->
+    <!--</suite-custom-code-block-8>-->
+    <abp-button iconClass="fa fa-check" buttonType="submit" formName="produto">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+    <!--<suite-custom-code-block-9>-->
+    <!--</suite-custom-code-block-9>-->
+  </ng-template>
+</abp-modal>

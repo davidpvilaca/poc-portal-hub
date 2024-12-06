@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using PortalHub.CategoriaProdutos;
+using PortalHub.Produtos;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
@@ -182,7 +184,7 @@ public class PortalHubModule : AbpModule
         ConfigureEfCore(context);
         ConfigureTheme();
     }
-    
+
     private void ConfigureTheme()
     {
         Configure<LeptonXThemeOptions>(options =>
@@ -190,7 +192,7 @@ public class PortalHubModule : AbpModule
             options.DefaultStyle = LeptonXStyleNames.Light;
         });
     }
-    
+
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
@@ -327,7 +329,7 @@ public class PortalHubModule : AbpModule
             });
         });
     }
-    
+
     private void ConfigureImpersonation(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.Configure<AbpIdentityWebOptions>(options =>
@@ -341,7 +343,6 @@ public class PortalHubModule : AbpModule
             options.ImpersonationUserPermission = IdentityPermissions.Users.Impersonation;
         });
     }
-
 
     private void ConfigureDataProtection(ServiceConfigurationContext context)
     {
@@ -370,6 +371,10 @@ public class PortalHubModule : AbpModule
              * Documentation: https://docs.abp.io/en/abp/latest/Entity-Framework-Core#add-default-repositories
              */
             options.AddDefaultRepositories(includeAllEntities: true);
+            options.AddRepository<Produto, Produtos.EfCoreProdutoRepository>();
+
+            options.AddRepository<CategoriaProduto, CategoriaProdutos.EfCoreCategoriaProdutoRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
@@ -379,9 +384,8 @@ public class PortalHubModule : AbpModule
                 configurationContext.UseNpgsql();
             });
         });
-        
-    }
 
+    }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {

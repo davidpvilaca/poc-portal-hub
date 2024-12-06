@@ -2,9 +2,17 @@ import { CoreModule, provideAbpCore, withOptions } from '@abp/ng.core';
 import { provideAbpOAuth } from '@abp/ng.oauth';
 import { provideSettingManagementConfig } from '@abp/ng.setting-management/config';
 import { provideFeatureManagementConfig } from '@abp/ng.feature-management';
-import { ThemeSharedModule, provideAbpThemeShared,withValidationBluePrint,withHttpErrorConfig} from '@abp/ng.theme.shared';
+import {
+  ThemeSharedModule,
+  provideAbpThemeShared,
+  withValidationBluePrint,
+  withHttpErrorConfig,
+} from '@abp/ng.theme.shared';
 import { provideCommercialUiConfig } from '@volo/abp.commercial.ng.ui/config';
-import { AccountAdminConfigModule, provideAccountAdminConfig } from '@volo/abp.ng.account/admin/config';
+import {
+  AccountAdminConfigModule,
+  provideAccountAdminConfig,
+} from '@volo/abp.ng.account/admin/config';
 import { provideAccountPublicConfig } from '@volo/abp.ng.account/public/config';
 import { IdentityConfigModule, provideIdentityConfig } from '@volo/abp.ng.identity/config';
 import { registerLocale } from '@abp/ng.core/locale';
@@ -18,6 +26,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
+import { PRODUTOS_PRODUTO_ROUTE_PROVIDER } from './produtos/produto/providers/produto-route.provider';
+import { CATEGORIA_PRODUTOS_CATEGORIA_PRODUTO_ROUTE_PROVIDER } from './categoria-produtos/categoria-produto/providers/categoria-produto-route.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +43,8 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
     SideMenuLayoutModule.forRoot(),
     AccountLayoutModule.forRoot(),
   ],
-  providers: [APP_ROUTE_PROVIDER,
+  providers: [
+    APP_ROUTE_PROVIDER,
     provideAbpCore(
       withOptions({
         environment,
@@ -59,6 +70,8 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
         wrongPassword: 'Please choose 1q2w3E*',
       }),
     ),
+    PRODUTOS_PRODUTO_ROUTE_PROVIDER,
+    CATEGORIA_PRODUTOS_CATEGORIA_PRODUTO_ROUTE_PROVIDER,
   ],
   bootstrap: [AppComponent],
 })

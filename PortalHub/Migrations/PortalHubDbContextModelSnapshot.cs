@@ -24,6 +24,151 @@ namespace PortalHub.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("PortalHub.CategoriaProdutos.CategoriaProduto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("text")
+                        .HasColumnName("Descricao");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Nome");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppCategoriaProdutos", (string)null);
+                });
+
+            modelBuilder.Entity("PortalHub.CategoriaProdutos.CategoriaProdutoProduto", b =>
+                {
+                    b.Property<Guid>("CategoriaProdutoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CategoriaProdutoId", "ProdutoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("CategoriaProdutoId", "ProdutoId");
+
+                    b.ToTable("AppCategoriaProdutoProduto", (string)null);
+                });
+
+            modelBuilder.Entity("PortalHub.Produtos.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CicloDeVida")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CicloDeVida");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<DateOnly>("DataPublicacao")
+                        .HasColumnType("date")
+                        .HasColumnName("DataPublicacao");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("text")
+                        .HasColumnName("Descricao");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("LinkDocumentacao")
+                        .HasColumnType("text")
+                        .HasColumnName("LinkDocumentacao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Nome");
+
+                    b.Property<string>("Plataforma")
+                        .HasColumnType("text")
+                        .HasColumnName("Plataforma");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("text")
+                        .HasColumnName("Status");
+
+                    b.Property<string>("Tecnologias")
+                        .HasColumnType("text")
+                        .HasColumnName("Tecnologias");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppProdutos", (string)null);
+                });
+
             modelBuilder.Entity("Volo.Abp.BackgroundJobs.BackgroundJobRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1494,6 +1639,21 @@ namespace PortalHub.Migrations
                     b.ToTable("AbpSettingDefinitions", (string)null);
                 });
 
+            modelBuilder.Entity("PortalHub.CategoriaProdutos.CategoriaProdutoProduto", b =>
+                {
+                    b.HasOne("PortalHub.CategoriaProdutos.CategoriaProduto", null)
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortalHub.Produtos.Produto", null)
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Volo.Abp.BlobStoring.Database.DatabaseBlob", b =>
                 {
                     b.HasOne("Volo.Abp.BlobStoring.Database.DatabaseBlobContainer", null)
@@ -1607,6 +1767,11 @@ namespace PortalHub.Migrations
                     b.HasOne("Volo.Abp.OpenIddict.Authorizations.OpenIddictAuthorization", null)
                         .WithMany()
                         .HasForeignKey("AuthorizationId");
+                });
+
+            modelBuilder.Entity("PortalHub.CategoriaProdutos.CategoriaProduto", b =>
+                {
+                    b.Navigation("Produtos");
                 });
 
             modelBuilder.Entity("Volo.Abp.Identity.IdentityRole", b =>
