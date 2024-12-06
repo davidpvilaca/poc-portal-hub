@@ -25,3 +25,11 @@
     height: 100% !important;
   }
 }
+
+.spacer {
+  margin-top: 50px;
+
+  &:last-child {
+    margin-top: 0;
+  }
+}

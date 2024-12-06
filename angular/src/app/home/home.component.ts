@@ -1,5 +1,7 @@
-import { AuthService, ConfigStateService, CurrentUserDto } from '@abp/ng.core';
+import { AuthService, ConfigStateService, CurrentUserDto, PagedResultDto } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
+import { ProdutoViewService } from '../produtos/produto/services/produto.service';
+import { ProdutoDto } from '@proxy/produtos';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +13,13 @@ export class HomeComponent implements OnInit {
     return this.authService.isAuthenticated
   }
 
-  user: CurrentUserDto
+  user?: CurrentUserDto
+  produtos?: PagedResultDto<ProdutoDto>
 
   constructor(
     private authService: AuthService,
-    private configStateService: ConfigStateService
+    private configStateService: ConfigStateService,
+    private produtosService: ProdutoViewService
   ) { }
 
   login() {
@@ -24,5 +28,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.configStateService.getOne('currentUser')
+    this.produtosService
+      .getNovosProdutos()
+      .subscribe(page => this.produtos = page)
   }
 }

@@ -23,4 +23,43 @@
     </div>
   </div>
 </div>
-
+@if (!user?.roles?.includes('admin') && hasLoggedIn) {
+  <div class="row">
+    <div class="col">
+      <div class="card h-lg-100 w-100 overflow-hidden">
+        <div class="card-body">
+          <div class="starting-content pe-5">
+            <h3>Novos Produtos</h3>
+            <hr>
+            @for (produto of produtos.items; track produto.id) {
+              <div class="row">
+                <h4>{{produto.nome}}</h4>
+                <p><strong>Descrição:</strong> {{produto.descricao}}</p>
+                <div class="mb-2">
+                  <a [href]="produto.linkDocumentacao" class="btn btn-primary">Acessar documentação</a>
+                </div>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Data de publicação:</th>
+                      <td>{{produto.dataPublicacao}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Plataforma:</th>
+                      <td>{{produto.plataforma}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Tecnologia:</th>
+                      <td>{{produto.tecnologia}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="spacer"></div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
