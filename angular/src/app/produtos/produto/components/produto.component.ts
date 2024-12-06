@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   NgbDateAdapter,
   NgbTimeAdapter,
@@ -8,7 +8,7 @@ import {
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
-import { ListService, CoreModule } from '@abp/ng.core';
+import { ListService, CoreModule, CurrentUserDto, ConfigStateService } from '@abp/ng.core';
 import { ThemeSharedModule, DateAdapter, TimeAdapter } from '@abp/ng.theme.shared';
 import { PageModule } from '@abp/ng.components/page';
 import { CommercialUiModule } from '@volo/abp.commercial.ng.ui';
@@ -56,4 +56,13 @@ import {
     }
   `,
 })
-export class ProdutoComponent extends AbstractProdutoComponent {}
+export class ProdutoComponent extends AbstractProdutoComponent {
+  private readonly configStateService = inject(ConfigStateService)
+
+  user?: CurrentUserDto
+
+  ngOnInit(): void {
+    super.ngOnInit()
+    this.user = this.configStateService.getOne('currentUser')
+  }
+}

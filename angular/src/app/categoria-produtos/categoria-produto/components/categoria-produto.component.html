@@ -177,7 +177,8 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column
+        @if (user?.roles?.includes('admin')) {
+          <ngx-datatable-column
           [name]="'AbpUi::Actions' | abpLocalization"
           [maxWidth]="150"
           [width]="150"
@@ -215,6 +216,7 @@
             </div>
           </ng-template>
         </ngx-datatable-column>
+        }
         <ngx-datatable-column name="{{ '::Nome' | abpLocalization }}" prop="categoriaProduto.nome">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{ row.categoriaProduto.nome }}
