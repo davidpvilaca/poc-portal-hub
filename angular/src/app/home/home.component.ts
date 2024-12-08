@@ -2,6 +2,8 @@ import { AuthService, ConfigStateService, CurrentUserDto, PagedResultDto } from 
 import { Component, OnInit } from '@angular/core';
 import { ProdutoViewService } from '../produtos/produto/services/produto.service';
 import { ProdutoDto } from '@proxy/produtos';
+import { CategoriaProdutoViewService } from '../categoria-produtos/categoria-produto/services/categoria-produto.service';
+import { CategoriaProdutoWithNavigationPropertiesDto } from '@proxy/categoria-produtos';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +17,13 @@ export class HomeComponent implements OnInit {
 
   user?: CurrentUserDto
   produtos?: PagedResultDto<ProdutoDto>
+  categorias?: PagedResultDto<CategoriaProdutoWithNavigationPropertiesDto>
 
   constructor(
     private authService: AuthService,
     private configStateService: ConfigStateService,
-    private produtosService: ProdutoViewService
+    private produtosService: ProdutoViewService,
+    private categoriaService: CategoriaProdutoViewService
   ) { }
 
   login() {
@@ -28,6 +32,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.configStateService.getOne('currentUser')
+    this.categoriaService
+      .getListaCategorias()
+      .subscribe(page => this.categorias = page)
     this.produtosService
       .getNovosProdutos()
       .subscribe(page => this.produtos = page)

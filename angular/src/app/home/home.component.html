@@ -31,7 +31,9 @@
           <div class="starting-content pe-5">
             <h3>Novos Produtos</h3>
             <hr>
+            <accordion [isAnimated]="true">
             @for (produto of produtos.items; track produto.id) {
+                <accordion-group [heading]="produto.nome">
               <div class="row">
                 <h4>{{produto.nome}}</h4>
                 <p><strong>Descrição:</strong> {{produto.descricao}}</p>
@@ -55,8 +57,9 @@
                   </tbody>
                 </table>
               </div>
-              <div class="spacer"></div>
+            </accordion-group>
             }
+            </accordion>
           </div>
         </div>
       </div>
